@@ -1,4 +1,3 @@
 from .events import *
-from .logs import *
-from .wrapper import *
+from .wrapper import GameWrapper
 from .utils import *
