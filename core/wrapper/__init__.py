@@ -1,1 +1,1 @@
-from .pygame import GameWrapper
+from .pygame_wrapper import GameWrapper

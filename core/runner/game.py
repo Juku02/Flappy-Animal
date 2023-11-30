@@ -1,6 +1,6 @@
-from core.utils import
+from core.utils import Any
 
 class Runner:
     def __init__(self) -> None:
-        self.runnig: Bool = False
+        self.runnig: bool = False
         pass
