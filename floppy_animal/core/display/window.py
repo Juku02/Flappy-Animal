@@ -6,8 +6,12 @@ class Window:
         self.heigth = heigth
         self.screen = PyGameWrapper.display_set_mode(self.width, self.heigth)   
         
-    def fill(self, color):
-       self.screen.fill(color)
-        
     def flip(self):
         PyGameWrapper.display_flip()
+    
+    def set_background(self, color=None, image=None):
+        if color is not None:
+            self.screen.fill(color)
+        elif image is not None:
+            bg = PyGameWrapper.bg_image_load(image)
+            self.screen.blit(bg,(0,0))

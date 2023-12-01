@@ -1,4 +1,4 @@
-import os
+import os,sys
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 from pygame.locals import *
@@ -20,15 +20,15 @@ class PyGameWrapper:
     @staticmethod
     def display_flip() -> None:
         pygame.display.flip()
-    
-    @staticmethod
-    def event_handler() -> bool:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return False
-            else:
-                return True
             
     @staticmethod
-    def clock_init() -> Any:
+    def clock_init():
         return pygame.time.Clock()
+    
+    @staticmethod
+    def event_get():
+        return pygame.event.get()
+    
+    @staticmethod
+    def bg_image_load(image_path) -> pygame.Surface:
+        return pygame.image.load(image_path)
