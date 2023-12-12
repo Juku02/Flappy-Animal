@@ -9,10 +9,14 @@ class PyGameWrapper:
     @staticmethod
     def init() -> None:
         pygame.init()
-        
+         
     @staticmethod
     def close() -> None:
         pygame.quit()
+    
+    @staticmethod 
+    def update() -> None:
+        pygame.display.update()
         
     @staticmethod
     def display_set_mode(width, heigth):
@@ -36,6 +40,7 @@ class PyGameWrapper:
     
     @staticmethod
     def set_font(font, font_size, use_freetype=False):
+        pygame.font.init()
         if use_freetype is False:
             return pygame.font.SysFont(font, font_size)
         else:
