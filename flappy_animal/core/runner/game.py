@@ -22,8 +22,16 @@ class Runner:
         self.initiation()
         while self.running:
             self.window.handler.event_handler()
-            if self.window.handler.process_events() == Even_value.QUIT.value:
-                self.running = False
+            event = self.window.handler.process_events()
+            if event is not None:
+                if event == Even_value.QUIT.value:
+                    self.running = False
+
+                if event[0] == Even_value.MOUSE_CLICK.value:
+                    position = event[1]
+                    for button in self.welcome_screen.buttons:
+                        if button.button_x <= position[0] <= button.end_x and button.button_y <= position[1] <= button.end_y:
+                            button.click()
 
             self.clock.tick(60)
             self.window.update()

@@ -1,5 +1,5 @@
 from .basic import BasicScene
-
+from flappy_animal.core.wrapper import PyGameWrapper
 class WelcomeScene(BasicScene):
     def __init__(self, window, background):
         super().__init__("Welcome", window)
@@ -12,8 +12,10 @@ class WelcomeScene(BasicScene):
     def to_options(self):
         pass
 
-    def exit_game(self):
-        print("dupa")
+    @staticmethod
+    def exit_game():
+        PyGameWrapper.update()
+        PyGameWrapper().close()
 
     def create(self):
         self.add_background(self.background)
@@ -22,5 +24,5 @@ class WelcomeScene(BasicScene):
         self.add_button("options", (270, 320), "opcje.png")
         self.add_button("exit", (270, 440), "wyjscie.png", self.exit_game)
 
-    def update(self):
+    def update(self, **kwargs):
         super().update(self.window)

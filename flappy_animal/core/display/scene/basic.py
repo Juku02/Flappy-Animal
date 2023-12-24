@@ -8,11 +8,10 @@ class BasicScene:
         self.font = None
         self.background = None
         self.text_boxes = []
-        self.button_boxes = []
+        self.buttons = []
 
     def add_background(self, background_image):
         self.window.set_background(image=background_image)
-        # self.window.blit(self.background, (0, 0))
 
     def add_textbox(self, text, antialiasing, color, location, font, size):
         self.font = PyGameWrapper.set_font(font, size)
@@ -22,10 +21,11 @@ class BasicScene:
 
     def add_button(self, name, location, image, func=None):
         button = (Button(name, location, image, self.window, func))
-        self.button_boxes.append(button)
+        self.buttons.append(button)
 
     def update(self, window):
+        PyGameWrapper.update()
         for box in self.text_boxes:
             self.window.blit(box[0], box[1])
-        for button in self.button_boxes:
+        for button in self.buttons:
             button.draw()

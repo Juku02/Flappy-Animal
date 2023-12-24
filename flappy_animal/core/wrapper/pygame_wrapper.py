@@ -1,4 +1,6 @@
 import os
+import sys
+
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 from pygame.locals import *
@@ -12,6 +14,7 @@ class PyGameWrapper:
     @staticmethod
     def close() -> None:
         pygame.quit()
+        sys.exit()
 
     @staticmethod
     def update() -> None:

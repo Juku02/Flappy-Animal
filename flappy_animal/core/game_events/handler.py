@@ -19,9 +19,7 @@ class Handler:
         while self.event_queue:
             event = self.event_queue.pop()
             if event == Event_type.QUIT:
-                print("Quit event received. Exiting...")
                 return Even_value.QUIT.value
-            elif event == Event_type.MOUSE_CLICK:
-                # print("Mouse click at position:" + str(additional_info[0]) + " " + str(additional_info[1]))
-                return Even_value.MOUSE_CLICK.value
+            elif event[0] == Event_type.MOUSE_CLICK:
+                return Even_value.MOUSE_CLICK.value, event[1]
         return None

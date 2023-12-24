@@ -21,13 +21,6 @@ class Button(object):
         self.end_y = img.get_height() + self.button_y
         self.window.blit(img, (self.button_x, self.button_y))
 
-    def click(self, window):
-        # print(window.handler.event_handler())
-        # clicked = window.handler.process_events()
-        # print(window.handler.process_events())
-        # if clicked == Even_value.MOUSE_CLICK.value:
-        print("Pressed mouse button")
-        #     func = self.funtion
-        #     func()
-        # else:
-        #     self.clicked = True
+    def click(self):
+        if self.funtion is not None:
+            self.funtion()
