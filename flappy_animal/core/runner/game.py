@@ -1,7 +1,7 @@
-from floppy_animal.core.display import Window, WelcomeScene
-from floppy_animal.core.wrapper import PyGameWrapper
-from floppy_animal.core.game_events import Handler
-from floppy_animal.core.utils import Even_value
+from flappy_animal.core.display import Window, WelcomeScene
+from flappy_animal.core.wrapper import PyGameWrapper
+from flappy_animal.core.game_events import Handler
+from flappy_animal.core.utils import Even_value
 from .clock import Clock
 
 

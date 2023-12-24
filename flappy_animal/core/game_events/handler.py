@@ -1,5 +1,5 @@
-from floppy_animal.core.wrapper import PyGameWrapper
-from floppy_animal.core.utils import Even_value, Event_type, Tuple
+from flappy_animal.core.wrapper import PyGameWrapper
+from flappy_animal.core.utils import Even_value, Event_type, Tuple
 
 class Handler:
     event_queue = []

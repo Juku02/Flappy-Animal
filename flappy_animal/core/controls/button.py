@@ -1,6 +1,6 @@
-from floppy_animal.core.utils import Even_value
-from floppy_animal.core.game_events import Handler
-from floppy_animal.core.wrapper import PyGameWrapper
+from flappy_animal.core.utils import Even_value
+from flappy_animal.core.game_events import Handler
+from flappy_animal.core.wrapper import PyGameWrapper
 class Button(object):
     def __init__(self, name, location, image, window, function):
         self.name = name

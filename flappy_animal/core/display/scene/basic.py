@@ -1,6 +1,6 @@
-from floppy_animal.core.wrapper import PyGameWrapper
-from floppy_animal.core.controls import Button
-from floppy_animal.core.utils import Even_value
+from flappy_animal.core.wrapper import PyGameWrapper
+from flappy_animal.core.controls import Button
+from flappy_animal.core.utils import Even_value
 class BasicScene:
     def __init__(self, name, window) -> None:
         self.name = name

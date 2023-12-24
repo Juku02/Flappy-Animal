@@ -1,4 +1,4 @@
-from floppy_animal.core import *
+from flappy_animal.core import *
 
 if __name__ == '__main__':
     runner = Runner()

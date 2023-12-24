@@ -1,4 +1,4 @@
-from floppy_animal.core.wrapper import PyGameWrapper
+from flappy_animal.core.wrapper import PyGameWrapper
 
 class Clock:
     def __init__(self) -> None:

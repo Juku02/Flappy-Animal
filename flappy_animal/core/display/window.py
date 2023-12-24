@@ -1,5 +1,5 @@
-from floppy_animal.core.commons import os
-from floppy_animal.core.wrapper import PyGameWrapper
+from flappy_animal.core.commons import os
+from flappy_animal.core.wrapper import PyGameWrapper
 
 class Window:
     def __init__(self, width, height, handler) -> None:
