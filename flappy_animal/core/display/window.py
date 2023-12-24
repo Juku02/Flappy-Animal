@@ -29,7 +29,7 @@ class Window:
             self.window.fill(color)
 
         elif image is not None:
-            bg = PyGameWrapper.image_load(os.path.join("floppy_animal/assets/images/backgrounds", image))
+            bg = PyGameWrapper.image_load(os.path.join("flappy_animal/assets/images/backgrounds", image))
             PyGameWrapper.scale(bg, (self.width, self.height))
             self.window.blit(bg, (0,0))
             return bg

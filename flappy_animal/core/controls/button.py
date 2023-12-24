@@ -16,7 +16,7 @@ class Button(object):
         self.clicked = False
 
     def draw(self):
-        img = PyGameWrapper.image_load("floppy_animal/assets/buttons/" + self.image_name)
+        img = PyGameWrapper.image_load("flappy_animal/assets/buttons/" + self.image_name)
         self.end_x = img.get_width() + self.button_x
         self.end_y = img.get_height() + self.button_y
         self.window.blit(img, (self.button_x, self.button_y))
