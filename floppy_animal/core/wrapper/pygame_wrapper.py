@@ -1,43 +1,50 @@
-import os,sys
+import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 from pygame.locals import *
-import pygame.freetype 
-from floppy_animal.core.utils import Any
+import pygame.freetype
 
 class PyGameWrapper:
     @staticmethod
     def init() -> None:
         pygame.init()
-         
+
     @staticmethod
     def close() -> None:
         pygame.quit()
-    
-    @staticmethod 
+
+    @staticmethod
     def update() -> None:
         pygame.display.update()
-        
+
     @staticmethod
-    def display_set_mode(width, heigth):
-        return pygame.display.set_mode([width,heigth],pygame.RESIZABLE)    
-    
+    def display_set_mode(width, height):
+        return pygame.display.set_mode([width, height], HWSURFACE | DOUBLEBUF | RESIZABLE)
+
+    @staticmethod
+    def display_set_caption(text):
+        pygame.display.set_caption(text)
+
     @staticmethod
     def display_flip() -> None:
         pygame.display.flip()
-            
+
     @staticmethod
     def clock_init():
         return pygame.time.Clock()
-    
+
     @staticmethod
     def event_get():
         return pygame.event.get()
-    
+
     @staticmethod
-    def bg_image_load(image_path) -> pygame.Surface:
+    def scale(pic, size: [int, int]):
+        return pygame.transform.scale(pic, size)
+
+    @staticmethod
+    def image_load(image_path) -> pygame.Surface:
         return pygame.image.load(image_path)
-    
+
     @staticmethod
     def set_font(font, font_size, use_freetype=False):
         pygame.font.init()
