@@ -1,2 +1,2 @@
 from .typing import *
-from .enum import Even_value, Event_type
+from .enum import Event_value, Event_type

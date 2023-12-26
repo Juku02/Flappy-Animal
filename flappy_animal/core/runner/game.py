@@ -1,7 +1,7 @@
-from flappy_animal.core.display import Window, WelcomeScene
+from flappy_animal.core.display import Window, WelcomeScene, OptionScene
 from flappy_animal.core.wrapper import PyGameWrapper
 from flappy_animal.core.game_events import Handler
-from flappy_animal.core.utils import Even_value
+from flappy_animal.core.utils import Event_value
 from .clock import Clock
 
 
@@ -24,17 +24,22 @@ class Runner:
             self.window.handler.event_handler()
             event = self.window.handler.process_events()
             if event is not None:
-                if event == Even_value.QUIT.value:
+                if event == Event_value.QUIT.value:
                     self.running = False
 
-                if event[0] == Even_value.MOUSE_CLICK.value:
+                elif event[0] == Event_value.MOUSE_CLICK.value:
                     position = event[1]
                     for button in self.welcome_screen.buttons:
-                        if button.button_x <= position[0] <= button.end_x and button.button_y <= position[1] <= button.end_y:
+                        if button.location[0] <= position[0] <= button.end_x and button.location[1] <= position[1] <= button.end_y:
                             button.click()
 
+                elif event[0] == Event_value.WINDOW_RESIZE.value:
+                    size = event[1]
+                    self.window.update(win_size=size)
+                    # print(size)
+                    self.window.resize(size, self.welcome_screen)
+
             self.clock.tick(60)
-            self.window.update()
             self.welcome_screen.update()
 
     @staticmethod

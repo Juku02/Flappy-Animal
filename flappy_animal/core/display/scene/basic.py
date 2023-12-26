@@ -1,6 +1,6 @@
 from flappy_animal.core.wrapper import PyGameWrapper
-from flappy_animal.core.controls import Button
-from flappy_animal.core.utils import Even_value
+from flappy_animal.core.controls import Button, TextBox
+from flappy_animal.core.utils import Event_value
 class BasicScene:
     def __init__(self, name, window) -> None:
         self.name = name
@@ -13,11 +13,9 @@ class BasicScene:
     def add_background(self, background_image):
         self.window.set_background(image=background_image)
 
-    def add_textbox(self, text, antialiasing, color, location, font, size):
-        self.font = PyGameWrapper.set_font(font, size)
-        text_surf = self.font.render(text, antialiasing, color)
-        # self.window.blit(text_surf, location)
-        self.text_boxes.append((text_surf, location))
+    def add_textbox(self, name, text, antialiasing, color, location, font, size):
+        text_box = TextBox( name, text, location, antialiasing, color, font, size)
+        self.text_boxes.append(text_box)
 
     def add_button(self, name, location, image, func=None):
         button = (Button(name, location, image, self.window, func))
@@ -26,6 +24,7 @@ class BasicScene:
     def update(self, window):
         PyGameWrapper.update()
         for box in self.text_boxes:
-            self.window.blit(box[0], box[1])
+            box.draw()
+            self.window.blit(box.surface, box.location)
         for button in self.buttons:
             button.draw()
