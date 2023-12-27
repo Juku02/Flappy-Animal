@@ -11,12 +11,13 @@ class Runner:
         self.clock: Clock = Clock()
         self.running: bool = False
         self.welcome_screen = None
+        self.actual_screen = None
 
     def initiation(self):
         self.running = True
         self.window.caption("Floppy Animal")
         self.welcome_screen = WelcomeScene(self.window, "welcome.png")
-        self.welcome_screen.create()
+        self.welcome_screen.draw()
 
     def start(self) -> None:
         self.initiation()

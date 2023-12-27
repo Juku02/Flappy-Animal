@@ -9,6 +9,9 @@ class BasicScene:
         self.background = None
         self.text_boxes = []
         self.buttons = []
+        self.child_screen = None
+        self.parent_screen = None
+        self.event = None
 
     def add_background(self, background_image):
         self.window.set_background(image=background_image)
@@ -20,6 +23,12 @@ class BasicScene:
     def add_button(self, name, location, image, func=None):
         button = (Button(name, location, image, self.window, func))
         self.buttons.append(button)
+
+    def create_event(self, type, data):
+        self.event = PyGameWrapper.make_event(type, data)
+
+    def post_event(self):
+        PyGameWrapper.post_event(self.event)
 
     def update(self, window):
         PyGameWrapper.update()

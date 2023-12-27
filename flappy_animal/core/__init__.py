@@ -4,3 +4,4 @@ from .utils import *
 from .runner import Runner, Clock
 from .display import Window, WelcomeScene
 from .commons import *
+from .config import Parser

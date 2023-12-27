@@ -1,0 +1,11 @@
+player:
+  character: 1
+  initial_position:
+    x: 400
+    y: 300
+
+difficulty:
+  speed: 5
+
+
+

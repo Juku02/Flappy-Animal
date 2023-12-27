@@ -55,3 +55,11 @@ class PyGameWrapper:
             return pygame.font.SysFont(font, font_size)
         else:
             return pygame.freetype.Font(font,font_size)
+
+    @staticmethod
+    def make_event(type, data):
+        return pygame.event.Event(type, data)
+
+    @staticmethod
+    def post_event(event):
+        pygame.event.post(event)
