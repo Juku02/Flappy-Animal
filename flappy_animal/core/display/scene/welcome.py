@@ -12,10 +12,10 @@ class WelcomeScene(BasicScene):
         pass
 
     def to_options(self):
-        self.child_screen = OptionScene(self.window, self.background, "options.yaml")
+        self.change_screen = OptionScene(self.window, self.background, "options.yaml", self)
         self.create_event(Event_value.CHANGE_SCENE.value, self.__dict__)
         self.post_event()
-        self.child_screen.draw()
+        self.change_screen.draw()
         # print("Go to the options")
 
         # self.child_scene.append()

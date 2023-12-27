@@ -16,7 +16,7 @@ class Window:
     def resize(self, size, screen):
         self.surface = PyGameWrapper.display_set_mode(size[0], size[1])
         for text in screen.text_boxes:
-            text.update(location=(size[0]/2-300, 100))
+            text.update(location=(size[0]/2-300, text.location[1]))
             text.draw()
         for button in screen.buttons:
             button.update(location=(size[0]/2 - 135, button.location[1]))
