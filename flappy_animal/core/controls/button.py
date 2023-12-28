@@ -1,9 +1,10 @@
 from flappy_animal.core.wrapper import PyGameWrapper
 class Button(object):
-    def __init__(self, name, location, image, window, function):
+    def __init__(self, name, location, image, window, function, func_args):
         self.name = name
         self.window = window
         self.funtion = function
+        self.func_args = func_args
         self.location = location
         self.image_name = image
         self.button_width = None
@@ -19,7 +20,9 @@ class Button(object):
         self.window.blit(img, self.location)
 
     def click(self):
-        if self.funtion is not None:
+        if self.funtion is not None and self.func_args is not None:
+            self.funtion(self.func_args)
+        elif self.funtion is not None and self.func_args is None:
             self.funtion()
 
     def update(self, **kwargs):

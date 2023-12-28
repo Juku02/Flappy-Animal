@@ -19,8 +19,8 @@ class BasicScene:
         text_box = TextBox( name, text, location, antialiasing, color, font, size)
         self.text_boxes.append(text_box)
 
-    def add_button(self, name, location, image, func=None):
-        button = (Button(name, location, image, self.window, func))
+    def add_button(self, name, location, image, func=None, func_args=None):
+        button = (Button(name, location, image, self.window, func, func_args))
         self.buttons.append(button)
 
     def create_event(self, type, data):

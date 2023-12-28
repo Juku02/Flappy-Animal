@@ -42,9 +42,9 @@ class Runner:
                     self.window.resize(size, self.actual_screen)
 
                 elif event[0] == Event_value.CHANGE_SCENE.value:
-                    change_screen = event[1]
+                    screen = event[1]
                     self.actual_screen.clear()
-                    self.actual_screen = change_screen['change_screen']
+                    self.actual_screen = screen['change_screen']
                     self.actual_screen.update()
                     # print(change_screen['change_screen'])
 

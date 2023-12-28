@@ -1,11 +1,12 @@
 from configparser import ConfigParser
 import yaml
+
 class Parser(ConfigParser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def read_yaml(self, file_path):
-        with open(file_path, 'r') as file:
+        with open("flappy_animal/config/" + file_path, 'r') as file:
             config_dict = yaml.safe_load(file)
 
         for section, options in config_dict.items():
@@ -14,7 +15,7 @@ class Parser(ConfigParser):
                 self.set(section, option, str(value))
 
     def write_yaml(self, file_path):
-        with open(file_path, 'w') as file:
+        with open("flappy_animal/config/" + file_path, 'w') as file:
             config_dict = {}
             for section in self.sections():
                 config_dict[section] = {}

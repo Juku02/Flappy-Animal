@@ -1,5 +1,5 @@
 player:
-  character: 1
+  character_splash: 1
   initial_position:
     x: 400
     y: 300
