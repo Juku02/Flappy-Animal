@@ -1,11 +1,5 @@
-player:
-  character_splash: 1
-  initial_position:
-    x: 400
-    y: 300
-
 difficulty:
-  speed: 5
-
-
-
+  speed: '4'
+player:
+  character_splash: '1'
+  initial_position: '{''x'': 400, ''y'': 300}'

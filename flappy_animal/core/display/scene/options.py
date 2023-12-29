@@ -33,6 +33,10 @@ class OptionScene(BasicScene):
             self.difficulty_index -= index
 
     def back_to(self):
+        self.config.read_yaml('options.yaml')
+        self.config.set('player', 'character_splash', str(self.character_index))
+        self.config.set('difficulty', 'speed', str(self.difficulty_index))
+        self.config.write_yaml('options.yaml')
         self.change_screen = self.parent_scene
         self.create_event(Event_value.CHANGE_SCENE.value, self.__dict__)
         self.post_event()
