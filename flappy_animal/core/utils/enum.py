@@ -16,3 +16,13 @@ class Event_type(Enum):
     MOUSE_CLICK = 1,
     WINDOW_RESIZE = 2,
     CHANGE_SCENE = 3,
+
+class Character_sprite(Enum):
+    PIGEON = 1,
+    CHICK = 2,
+    SHARK = 3,
+
+class Player_mode(Enum):
+    SHM = "SHM"
+    NORMAL = "NORMAL"
+    CRASH = "CRASH"
