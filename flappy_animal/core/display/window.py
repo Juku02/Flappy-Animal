@@ -1,5 +1,5 @@
 from flappy_animal.core.commons import os
-from flappy_animal.core.wrapper import PyGameWrapper
+from flappy_animal.core.wrapper import PyGameWrapper, pygame
 
 class Window:
     def __init__(self, width, height, handler) -> None:
@@ -7,13 +7,17 @@ class Window:
         self.height = height
         self.handler = handler
         self.surface = PyGameWrapper.display_set_mode(self.width, self.height)
+        self.ratio = width / height
+        self.viewport_width = self.width
+        self.viewport_height = self.height * 0.79
+        self.viewport_ratio = self.viewport_width / self.viewport_height
 
-    def update(self, **kwargs):
+    def update(self, **kwargs) -> None:
         for key, value in kwargs.items():
             setattr(self, key, value)
         PyGameWrapper.update()
 
-    def resize(self, size, screen):
+    def resize(self, size, screen) -> None:
         self.surface = PyGameWrapper.display_set_mode(size[0], size[1])
         for text in screen.text_boxes:
             text.update(location=(size[0]/2-300, text.location[1]))
@@ -24,14 +28,14 @@ class Window:
         bg = PyGameWrapper.image_load(os.path.join("flappy_animal/assets/images/backgrounds", screen.background))
         screen.window.blit(PyGameWrapper.scale(bg, size), (0, 0))
     @staticmethod
-    def flip():
+    def flip() -> None:
         PyGameWrapper.display_flip()
 
     @staticmethod
-    def caption(text):
+    def caption(text) -> None:
         PyGameWrapper.display_set_caption(text)
 
-    def blit(self, surface, location):
+    def blit(self, surface, location) -> None:
         self.surface.blit(surface, location)
 
     def set_background(self, color=None, image=None):

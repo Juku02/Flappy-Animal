@@ -2,7 +2,7 @@ import os
 import sys
 
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import pygame
+import pygame as pygame
 from pygame.locals import *
 import pygame.freetype
 
@@ -39,6 +39,10 @@ class PyGameWrapper:
     @staticmethod
     def event_get():
         return pygame.event.get()
+
+    @staticmethod
+    def rotate(surface, alfa):
+        return pygame.transform.rotate(surface, alfa)
 
     @staticmethod
     def scale(pic, size: [int, int]):

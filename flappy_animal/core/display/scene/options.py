@@ -1,5 +1,5 @@
-from flappy_animal.core.config import Parser
 from .basic import BasicScene
+from flappy_animal.core.config import Parser
 from flappy_animal.core.utils import Event_value
 class OptionScene(BasicScene):
     def __init__(self, window, background,config_file, change_scane):

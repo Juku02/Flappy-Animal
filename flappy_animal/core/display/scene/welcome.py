@@ -1,7 +1,10 @@
 from flappy_animal.core.utils import Event_value
 from .basic import BasicScene
 from .options import OptionScene
+from .game import GameScene
 from flappy_animal.core.wrapper import PyGameWrapper
+
+
 class WelcomeScene(BasicScene):
     def __init__(self, window, background):
         super().__init__("Welcome", window)
@@ -9,7 +12,10 @@ class WelcomeScene(BasicScene):
         self.background = background
 
     def start_game(self):
-        pass
+        self.change_screen = GameScene(self.window, self.background, "options.yaml", self)
+        self.create_event(Event_value.CHANGE_SCENE.value, self.__dict__)
+        self.post_event()
+        self.change_screen.draw()
 
     def to_options(self):
         self.change_screen = OptionScene(self.window, self.background, "options.yaml", self)
