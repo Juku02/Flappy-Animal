@@ -34,8 +34,10 @@ class BasicScene:
 
     def update(self, window):
         PyGameWrapper.update()
-        for box in self.text_boxes:
-            box.draw()
-            self.window.blit(box.surface, box.location)
-        for button in self.buttons:
-            button.draw()
+        if self.text_boxes is not None:
+            for box in self.text_boxes:
+                box.draw()
+                self.window.blit(box.surface, box.location)
+        if self.buttons is not None:
+            for button in self.buttons:
+                button.draw()

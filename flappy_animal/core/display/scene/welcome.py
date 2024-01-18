@@ -22,9 +22,6 @@ class WelcomeScene(BasicScene):
         self.create_event(Event_value.CHANGE_SCENE.value, self.__dict__)
         self.post_event()
         self.change_screen.draw()
-        # print("Go to the options")
-
-        # self.child_scene.append()
 
     @staticmethod
     def exit_game():

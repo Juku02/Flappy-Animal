@@ -48,8 +48,7 @@ class Runner:
                     self.actual_screen = screen['change_screen']
                     self.actual_screen.update()
 
-
-            self.clock.tick(40)
+            self.clock.tick(60)
             self.actual_screen.update()
 
     @staticmethod
