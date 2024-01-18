@@ -9,7 +9,7 @@ class Window:
         self.surface = PyGameWrapper.display_set_mode(self.width, self.height)
         self.ratio = width / height
         self.viewport_width = self.width
-        self.viewport_height = self.height * 0.79
+        self.viewport_height = self.height
         self.viewport_ratio = self.viewport_width / self.viewport_height
 
     def update(self, **kwargs) -> None:

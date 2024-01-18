@@ -6,7 +6,7 @@ class Entity:
     def __init__(
         self,
         window: Window,
-        image = None,
+        image:pygame.Surface = None,
         x=0,
         y=0,
         w: int = None,

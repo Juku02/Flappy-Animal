@@ -29,9 +29,16 @@ class PyGameWrapper:
         pygame.display.set_caption(text)
 
     @staticmethod
+    def mouse_get_pressed():
+        return pygame.mouse.get_pressed()
+
+    @staticmethod
     def display_flip() -> None:
         pygame.display.flip()
 
+    @staticmethod
+    def transform_flip(*args):
+        return pygame.transform.flip(*args)
     @staticmethod
     def clock_init():
         return pygame.time.Clock()

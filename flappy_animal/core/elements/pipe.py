@@ -1,6 +1,7 @@
 import random
 from typing import List
 from .entity import Entity
+from flappy_animal.core.wrapper import PyGameWrapper, pygame
 class Pipe(Entity):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -15,14 +16,15 @@ class Pipes(Entity):
     upper: List[Pipe]
     lower: List[Pipe]
 
-    def __init__(self, window, images ) -> None:
+    def __init__(self, window, image) -> None:
         super().__init__(window)
-        self.pipe_gap = 120
+        self.window = window
+        self.pipe_gap = 190
         self.top = 0
         self.bottom = self.window.viewport_height
         self.upper = []
         self.lower = []
-        self.images = images
+        self.image: pygame.Surface = PyGameWrapper.image_load("flappy_animal/assets/sprites/" + image)
         self.spawn_initial_pipes()
 
     def tick(self) -> None:
@@ -43,7 +45,7 @@ class Pipes(Entity):
         if not last:
             return True
 
-        return self.config.window.width - (last.x + last.w) > last.w * 2.5
+        return self.window.width - (last.x + last.w) > last.w * 2.5
 
     def spawn_new_pipes(self):
         # add new pipe when first pipe is about to touch left of screen
@@ -77,23 +79,25 @@ class Pipes(Entity):
     def make_random_pipes(self):
         """returns a randomly generated pipe"""
         # y of gap between upper and lower pipe
-        base_y = self.window.viewport_height
+        base_y = self.window.viewport_height * 0.79
 
         gap_y = random.randrange(0, int(base_y * 0.6 - self.pipe_gap))
         gap_y += int(base_y * 0.2)
-        pipe_height = self.images.pipe[0].get_height()
+        pipe_height = self.image.get_height()
         pipe_x = self.window.width + 10
 
         upper_pipe = Pipe(
-            self.images.pipe[0],
-            pipe_x,
-            gap_y - pipe_height,
+            window=self.window,
+            image=PyGameWrapper.transform_flip(self.image.convert_alpha(), False, True),
+            x=pipe_x,
+            y=gap_y - pipe_height
         )
 
         lower_pipe = Pipe(
-            self.images.pipe[1],
-            pipe_x,
-            gap_y + self.pipe_gap,
+            window=self.window,
+            image=self.image,
+            x=pipe_x,
+            y=gap_y + self.pipe_gap,
         )
 
         return upper_pipe, lower_pipe

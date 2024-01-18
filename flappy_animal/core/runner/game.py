@@ -28,17 +28,18 @@ class Runner:
             if event is not None:
                 if event == Event_value.QUIT.value:
                     self.running = False
-
                 elif event[0] == Event_value.MOUSE_CLICK.value:
-                    position = event[1]
-                    for button in self.actual_screen.buttons:
-                        if button.location[0] <= position[0] <= button.end_x and button.location[1] <= position[1] <= button.end_y:
-                            button.click()
+                    if self.actual_screen.buttons:
+                        position = event[1]
+                        for button in self.actual_screen.buttons:
+                            if button.location[0] <= position[0] <= button.end_x and button.location[1] <= position[1] <= button.end_y:
+                                button.click()
+                    else:
+                        self.actual_screen.player.flap()
 
                 elif event[0] == Event_value.WINDOW_RESIZE.value:
                     size = event[1]
                     self.window.update(win_size=size)
-                    # print(size)
                     self.window.resize(size, self.actual_screen)
 
                 elif event[0] == Event_value.CHANGE_SCENE.value:
@@ -46,9 +47,9 @@ class Runner:
                     self.actual_screen.clear()
                     self.actual_screen = screen['change_screen']
                     self.actual_screen.update()
-                    # print(change_screen['change_screen'])
 
-            self.clock.tick(60)
+
+            self.clock.tick(40)
             self.actual_screen.update()
 
     @staticmethod

@@ -10,12 +10,14 @@ class Event_value(Enum):
     K_LEFT = pygame.K_LEFT,
     K_RIGHT = pygame.K_RIGHT,
     CHANGE_SCENE = pygame.USEREVENT + 1
+    FLAP_BUTTON = pygame.USEREVENT + 2
 
 class Event_type(Enum):
     QUIT = 0,
     MOUSE_CLICK = 1,
     WINDOW_RESIZE = 2,
     CHANGE_SCENE = 3,
+    LEFT_MOUSE_CLICK = 4
 
 class Character_sprite(Enum):
     PIGEON = 1,

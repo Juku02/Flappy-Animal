@@ -7,15 +7,15 @@ from .pipe import Pipe, Pipes
 from .floor import Floor
 from .score import Score
 class Player(Entity):
-    def __init__(self, splash, window) -> None:
-        self.splash = splash
-        x = int(window.width * 0.2)
-        y = int((window.height - splash.get_height()) / 2)
-        super().__init__(window, splash, x, y)
-        self.min_y = -2 * self.h
-        self.max_y = window.viewport_height - self.h * 0.75
+    def __init__(self, splash, window, initial_position) -> None:
+        self.splash = PyGameWrapper.image_load("flappy_animal/assets/sprites/" + str(splash) + ".png")
+        x = int(initial_position[0])
+        y = int(initial_position[1])
+        super().__init__(window=window, image=self.splash, x=x, y=y)
+        self.min_y = 0
+        self.max_y = window.viewport_height - window.height * 0.2
+        self.mode = None
         self.img_idx = 0
-        self.img_gen = cycle([0, 1, 2, 1])
         self.frame = 0
         self.crashed = False
         self.crash_entity = None
@@ -28,11 +28,10 @@ class Player(Entity):
         elif mode == Player_mode.SHM:
             self.reset_vals_shm()
         elif mode == Player_mode.CRASH:
-            self.stop_wings()
             self.reset_vals_crash()
 
     def reset_vals_normal(self) -> None:
-        self.vel_y = -9  # player's velocity along Y axis
+        self.vel_y = -5  # player's velocity along Y axis
         self.max_vel_y = 10  # max vel along Y, max descend speed
         self.min_vel_y = -8  # min vel along Y, max ascend speed
         self.acc_y = 1  # players downward acceleration
@@ -65,14 +64,6 @@ class Player(Entity):
         self.max_vel_y = 15
         self.vel_rot = -8
 
-    def update_image(self):
-        self.frame += 1
-        if self.frame % 5 == 0:
-            self.img_idx = next(self.img_gen)
-            self.image = self.images.player[self.img_idx]
-            self.w = self.image.get_width()
-            self.h = self.image.get_height()
-
     def tick_shm(self) -> None:
         if self.vel_y >= self.max_vel_y or self.vel_y <= self.min_vel_y:
             self.acc_y *= -1
@@ -82,6 +73,8 @@ class Player(Entity):
     def tick_normal(self) -> None:
         if self.vel_y < self.max_vel_y and not self.flapped:
             self.vel_y += self.acc_y
+        if self.flapped:
+            self.flapped = False
 
         self.y = clamp(self.y + self.vel_y, self.min_y, self.max_y)
         self.rotate()
@@ -101,7 +94,6 @@ class Player(Entity):
         self.rot = clamp(self.rot + self.vel_rot, self.rot_min, self.rot_max)
 
     def draw(self) -> None:
-        self.update_image()
         if self.mode == Player_mode.SHM:
             self.tick_shm()
         elif self.mode == Player_mode.NORMAL:
@@ -112,12 +104,9 @@ class Player(Entity):
         self.draw_player()
 
     def draw_player(self) -> None:
-        rotated_image = pygame.transform.rotate(self.image, self.rot)
+        rotated_image = PyGameWrapper.rotate(self.image, self.rot)
         rotated_rect = rotated_image.get_rect(center=self.rect.center)
         self.window.blit(rotated_image, rotated_rect)
-
-    def stop_wings(self) -> None:
-        self.img_gen = cycle([self.img_idx])
 
     def flap(self) -> None:
         if self.y > self.min_y:

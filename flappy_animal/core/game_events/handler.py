@@ -3,7 +3,6 @@ from flappy_animal.core.utils import Event_value, Event_type, Tuple
 
 class Handler:
     event_queue = []
-
     def add_event(self, event):
         self.event_queue.append(event)
 
@@ -17,6 +16,7 @@ class Handler:
                 self.add_event((Event_type.WINDOW_RESIZE, event.dict['size']))
             elif event.type == Event_value.CHANGE_SCENE.value:
                 self.add_event((Event_type.CHANGE_SCENE, event.dict))
+
         return None
 
     def process_events(self):

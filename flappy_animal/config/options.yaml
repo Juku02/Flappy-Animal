@@ -2,4 +2,5 @@ difficulty:
   speed: '1'
 player:
   character_splash: '1'
-  initial_position: '{''x'': 400, ''y'': 300}'
+  start_x: '100'
+  start_y: '250'
