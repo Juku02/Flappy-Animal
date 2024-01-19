@@ -24,7 +24,7 @@ class OptionScene(BasicScene):
 
     def difficulty_choose(self, index):
         self.difficulty_index += index
-        if 0 < self.difficulty_index <= 5:
+        if 0 < self.difficulty_index <= 3:
             for box in self.text_boxes:
                 if box.name == 'Difficulty_index':
                     self.clear()

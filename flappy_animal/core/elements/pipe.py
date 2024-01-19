@@ -3,9 +3,9 @@ from typing import List
 from .entity import Entity
 from flappy_animal.core.wrapper import PyGameWrapper, pygame
 class Pipe(Entity):
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, speed, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.vel_x = -5
+        self.vel_x = -3 * speed
 
     def draw(self) -> None:
         self.x += self.vel_x
@@ -16,11 +16,12 @@ class Pipes(Entity):
     upper: List[Pipe]
     lower: List[Pipe]
 
-    def __init__(self, window, image) -> None:
+    def __init__(self, window, image, speed) -> None:
         super().__init__(window)
         self.window = window
-        self.pipe_gap = 190
+        self.pipe_gap = 160
         self.top = 0
+        self.speed = speed
         self.bottom = self.window.viewport_height
         self.upper = []
         self.lower = []
@@ -48,13 +49,11 @@ class Pipes(Entity):
         return self.window.width - (last.x + last.w) > last.w * 2.5
 
     def spawn_new_pipes(self):
-        # add new pipe when first pipe is about to touch left of screen
         upper, lower = self.make_random_pipes()
         self.upper.append(upper)
         self.lower.append(lower)
 
     def remove_old_pipes(self):
-        # remove first pipe if its out of the screen
         for pipe in self.upper:
             if pipe.x < -pipe.w:
                 self.upper.remove(pipe)
@@ -78,15 +77,16 @@ class Pipes(Entity):
 
     def make_random_pipes(self):
         """returns a randomly generated pipe"""
-        # y of gap between upper and lower pipe
+
         base_y = self.window.viewport_height * 0.79
 
-        gap_y = random.randrange(0, int(base_y * 0.6 - self.pipe_gap))
+        gap_y = random.randrange(0, int(base_y * 0.6 - self.pipe_gap - ((self.speed/10) * self.pipe_gap)))
         gap_y += int(base_y * 0.2)
         pipe_height = self.image.get_height()
-        pipe_x = self.window.width + 10
+        pipe_x = (self.window.width + 10)
 
         upper_pipe = Pipe(
+            speed=self.speed,
             window=self.window,
             image=PyGameWrapper.transform_flip(self.image.convert_alpha(), False, True),
             x=pipe_x,
@@ -94,6 +94,7 @@ class Pipes(Entity):
         )
 
         lower_pipe = Pipe(
+            speed=self.speed,
             window=self.window,
             image=self.image,
             x=pipe_x,
