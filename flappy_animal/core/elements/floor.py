@@ -1,12 +1,14 @@
+import pygame
+
 from .entity import Entity
 from flappy_animal.core.display import Window
 from flappy_animal.core.wrapper import PyGameWrapper
 class Floor(Entity):
-    def __init__(self, window: Window, speed) -> None:
-        self.image = PyGameWrapper.image_load("flappy_animal/assets/sprites/base.png")
+    def __init__(self, window: Window, speed: int) -> None:
+        self.image: pygame.Surface = PyGameWrapper.image_load("flappy_animal/assets/sprites/base.png")
         super().__init__(window, self.image, 0, window.viewport_height*0.88)
-        self.vel_x = 4 * speed
-        self.x_extra = self.w - window.width
+        self.vel_x: int = 4 * speed
+        self.x_extra: int = self.w - window.width
 
     def stop(self) -> None:
         self.vel_x = 0

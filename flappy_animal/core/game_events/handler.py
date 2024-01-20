@@ -1,12 +1,13 @@
-from flappy_animal.core.wrapper import PyGameWrapper
-from flappy_animal.core.utils import Event_value, Event_type, Tuple
+from flappy_animal.core.wrapper import PyGameWrapper, pygame
+from flappy_animal.core.utils import Event_value, Event_type, Tuple, List, Union, Dict, Any
 
 class Handler:
-    event_queue = []
-    def add_event(self, event):
+    event_queue: List = []
+
+    def add_event(self, event: Union[Tuple[Event_type, Dict], Event_type]) -> None:
         self.event_queue.append(event)
 
-    def event_handler(self):
+    def event_handler(self) -> None:
         for event in PyGameWrapper.event_get():
             if event.type == Event_value.QUIT.value[0]:
                 self.add_event(Event_type.QUIT)
@@ -19,7 +20,7 @@ class Handler:
 
         return None
 
-    def process_events(self):
+    def process_events(self) -> Any:
         while self.event_queue:
             event = self.event_queue.pop()
             if event == Event_type.QUIT:

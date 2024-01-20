@@ -1,7 +1,7 @@
-from flappy_animal.core.display import Window, WelcomeScene, OptionScene
+from flappy_animal.core.display import Window, WelcomeScene
 from flappy_animal.core.wrapper import PyGameWrapper
 from flappy_animal.core.game_events import Handler
-from flappy_animal.core.utils import Event_value
+from flappy_animal.core.utils import Event_value, Any
 from .clock import Clock
 
 
@@ -10,10 +10,10 @@ class Runner:
         self.window: Window = Window(800, 600, Handler())
         self.clock: Clock = Clock()
         self.running: bool = False
-        self.welcome_screen = None
-        self.actual_screen = None
+        self.welcome_screen: Window = None
+        self.actual_screen: Any = None
 
-    def initiation(self):
+    def initiation(self) -> None:
         self.running = True
         self.window.caption("Floppy Animal")
         self.welcome_screen = WelcomeScene(self.window, "welcome.png")
@@ -38,7 +38,7 @@ class Runner:
                         self.actual_screen.player.flap()
 
                 elif event[0] == Event_value.WINDOW_RESIZE.value:
-                    size = event[1]
+                    size = (event[1])
                     self.window.update(win_size=size)
                     self.window.resize(size, self.actual_screen)
 

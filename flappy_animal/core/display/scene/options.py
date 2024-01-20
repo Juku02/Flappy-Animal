@@ -1,18 +1,18 @@
-from .basic import BasicScene
+from .basic import BasicScene,Window
 from flappy_animal.core.config import Parser
-from flappy_animal.core.utils import Event_value
+from flappy_animal.core.utils import Event_value, Any
 class OptionScene(BasicScene):
-    def __init__(self, window, background,config_file, change_scane):
+    def __init__(self, window: Window, background: str, config_file: str, change_scane: Any) -> None:
         super().__init__("Options", window)
-        self.window = window
-        self.background = background
-        self.config_file = config_file
-        self.config = Parser()
-        self.parent_scene = change_scane
-        self.character_index = 1
-        self.difficulty_index = 1
+        self.window: Window = window
+        self.background: str = background
+        self.config_file: str = config_file
+        self.config: Parser = Parser()
+        self.parent_scene: Any = change_scane
+        self.character_index: int = 1
+        self.difficulty_index: int = 1
 
-    def character_choose(self, index):
+    def character_choose(self, index: int) -> None:
         self.character_index += index
         if 0 < self.character_index <= 3:
             for box in self.text_boxes:
@@ -22,7 +22,7 @@ class OptionScene(BasicScene):
         else:
             self.character_index -= index
 
-    def difficulty_choose(self, index):
+    def difficulty_choose(self, index: int) -> None:
         self.difficulty_index += index
         if 0 < self.difficulty_index <= 3:
             for box in self.text_boxes:
@@ -32,7 +32,7 @@ class OptionScene(BasicScene):
         else:
             self.difficulty_index -= index
 
-    def back_to(self):
+    def back_to(self) -> None:
         self.config.read_yaml('options.yaml')
         self.config.set('player', 'character_splash', str(self.character_index))
         self.config.set('difficulty', 'speed', str(self.difficulty_index))
@@ -42,7 +42,7 @@ class OptionScene(BasicScene):
         self.post_event()
         self.change_screen.draw()
 
-    def draw(self):
+    def draw(self) -> None:
         self.add_background(self.background)
         self.add_textbox("Character",
                          "Choose Character",
@@ -97,6 +97,6 @@ class OptionScene(BasicScene):
                         "wstecz.png",
                         self.back_to)
 
-    def update(self, **kwargs):
+    def update(self, **kwargs) -> None:
         self.window.update()
         super().update(self.window)

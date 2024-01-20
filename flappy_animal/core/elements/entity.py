@@ -1,4 +1,4 @@
-from flappy_animal.core.utils import get_hit_mask, pixel_collision
+from flappy_animal.core.utils import get_hit_mask, pixel_collision, Union
 from flappy_animal.core.display import Window
 from flappy_animal.core.wrapper import pygame
 
@@ -6,22 +6,22 @@ class Entity:
     def __init__(
         self,
         window: Window,
-        image:pygame.Surface = None,
-        x=0,
-        y=0,
-        w: int = None,
-        h: int = None,
+        image: pygame.Surface = None,
+        x: Union[int, float] = 0,
+        y: Union[int, float] = 0,
+        w: Union[int, float] = None,
+        h: Union[int, float] = None,
         **kwargs,
     ) -> None:
-        self.window = window
-        self.x = x
-        self.y = y
+        self.window: Window = window
+        self.x: Union[int, float] = x
+        self.y: Union[int, float] = y
         if w or h:
-            self.w = w or window.ratio * h
-            self.h = h or w / window.ratio
-            self.image = pygame.transform.scale(image, (self.w, self.h))
+            self.w: Union[int, float] = w or window.ratio * h
+            self.h: Union[int, float] = h or w / window.ratio
+            self.image:  pygame.Surface = pygame.transform.scale(image, (self.w, self.h))
         else:
-            self.image = image
+            self.image:  pygame.Surface = image
             self.w = image.get_width() if image else 0
             self.h = image.get_height() if image else 0
 

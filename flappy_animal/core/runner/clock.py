@@ -1,8 +1,8 @@
-from flappy_animal.core.wrapper import PyGameWrapper
+from flappy_animal.core.wrapper import PyGameWrapper, pygame
 
 class Clock:
     def __init__(self) -> None:
-        self.clock = PyGameWrapper.clock_init()
+        self.clock: pygame.time.Clock = PyGameWrapper.clock_init()
         
-    def tick(self,fps_frame):
+    def tick(self, fps_frame: int) -> None:
         self.clock.tick(fps_frame)

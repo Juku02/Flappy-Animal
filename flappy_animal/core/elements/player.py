@@ -1,24 +1,23 @@
-from flappy_animal.core.utils import Player_mode
-from flappy_animal.core.utils import clamp
+from flappy_animal.core.utils import Player_mode, clamp, Tuple, Union, Any
 from flappy_animal.core.wrapper import PyGameWrapper, pygame
-from itertools import cycle
+from flappy_animal.core.display import Window
 from .entity import Entity
 from .pipe import Pipe, Pipes
 from .floor import Floor
-from .score import Score
+
 class Player(Entity):
-    def __init__(self, splash, window, initial_position) -> None:
-        self.splash = PyGameWrapper.image_load("flappy_animal/assets/sprites/" + str(splash) + ".png")
+    def __init__(self, splash: str, window: Window, initial_position: Tuple) -> None:
+        self.splash: pygame.Surface = PyGameWrapper.image_load("flappy_animal/assets/sprites/" + str(splash) + ".png")
         x = int(initial_position[0])
         y = int(initial_position[1])
         super().__init__(window=window, image=self.splash, x=x, y=y)
-        self.min_y = 0
-        self.max_y = window.viewport_height - window.height * 0.2
-        self.mode = None
-        self.img_idx = 0
-        self.frame = 0
-        self.crashed = False
-        self.crash_entity = None
+        self.min_y: Union[int, float] = 0
+        self.max_y:  Union[int, float] = window.viewport_height - window.height * 0.2
+        self.mode: Player_mode = None
+        self.img_idx: int = 0
+        self.frame: int = 0
+        self.crashed: bool = False
+        self.crash_entity: Any = None
         self.set_mode(Player_mode.SHM)
 
     def set_mode(self, mode: Player_mode) -> None:
@@ -118,9 +117,6 @@ class Player(Entity):
         return pipe.cx <= self.cx < pipe.cx - pipe.vel_x
 
     def collided(self, pipes: Pipes, floor: Floor) -> bool:
-        """returns True if player collides with floor or pipes."""
-
-        # if player crashes into ground
         if self.collide(floor):
             self.crashed = True
             self.crash_entity = "floor"

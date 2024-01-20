@@ -1,37 +1,35 @@
 
-from .basic import BasicScene
-from flappy_animal.core.utils import Event_value
+from .basic import BasicScene, Window
+from flappy_animal.core.utils import Event_value, Any
 from flappy_animal.core.config import Parser
 from flappy_animal.core.elements import Player, Score, Player_mode, Pipes, Floor
-from flappy_animal.core.wrapper import PyGameWrapper
 class GameScene(BasicScene):
-    def __init__(self, window, background, config_file, change_scane):
+    def __init__(self, window: Window, background: str, config_file: str, change_scane: Any):
         super().__init__("Game", window)
-        self.window = window
-        self.background = background
-        self.parent_scene = change_scane
-        self.config = Parser()
-        self.score_table = Parser()
-        self.score = Score()
+        self.window: Window = window
+        self.background: str = background
+        self.parent_scene: Any = change_scane
+        self.config: Parser = Parser()
+        self.score_table: Parser = Parser()
+        self.score: Score = Score()
         self.config.read_yaml(config_file)
         initial_x = self.config.getint("player", "start_x")
         initial_y = self.config.getint("player", "start_y")
         speed = self.config.getint("difficulty", "speed")
-        self.player = Player(self.config.getint("player", "character_splash"), self.window, (initial_x, initial_y))
-        self.floor = Floor(self.window, speed)
-        self.pipes = Pipes(self.window, "pipe.png", speed)
+        self.player: Player = Player(self.config.getint("player", "character_splash"), self.window, (initial_x, initial_y))
+        self.floor: Floor = Floor(self.window, speed)
+        self.pipes: Pipes = Pipes(self.window, "pipe.png", speed)
         self.score.reset()
         self.player.set_mode(Player_mode.NORMAL)
-        self.gameOn = 1
+        self.gameOn: bool = True
 
-    def back_to(self):
+    def back_to(self) -> None:
         self.change_screen = self.parent_scene
         self.create_event(Event_value.CHANGE_SCENE.value, self.__dict__)
         self.post_event()
         self.change_screen.draw()
 
-    def gameOver(self):
-
+    def gameOver(self) -> None:
         self.add_textbox("Score",
                          "Wynik: " + str(self.score.score),
                          True,
@@ -42,10 +40,10 @@ class GameScene(BasicScene):
 
         self.add_button("back_to_menu", (self.window.width/2 - 135, 320), "wstecz.png", self.back_to)
 
-    def draw(self):
+    def draw(self) -> None:
         self.add_background(self.background)
         if self.player.collided(self.pipes, self.floor):
-            self.gameOn = 0
+            self.gameOn = False
             self.clear()
             self.gameOver()
 
@@ -57,7 +55,7 @@ class GameScene(BasicScene):
         self.pipes.tick()
         self.player.tick()
 
-    def update(self, **kwargs):
+    def update(self, **kwargs) -> None:
         self.window.update()
         if self.gameOn:
             self.draw()

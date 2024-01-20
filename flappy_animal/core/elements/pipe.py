@@ -1,11 +1,12 @@
-import random
-from typing import List
 from .entity import Entity
+from flappy_animal.core.commons import random
+from flappy_animal.core.utils import List, Union, Tuple
 from flappy_animal.core.wrapper import PyGameWrapper, pygame
+from flappy_animal.core.display import Window
 class Pipe(Entity):
-    def __init__(self, speed, *args, **kwargs) -> None:
+    def __init__(self, speed: int, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.vel_x = -3 * speed
+        self.vel_x: Union[int, float] = -3 * speed
 
     def draw(self) -> None:
         self.x += self.vel_x
@@ -16,15 +17,15 @@ class Pipes(Entity):
     upper: List[Pipe]
     lower: List[Pipe]
 
-    def __init__(self, window, image, speed) -> None:
+    def __init__(self, window: Window, image: str, speed: int) -> None:
         super().__init__(window)
-        self.window = window
-        self.pipe_gap = 160
-        self.top = 0
-        self.speed = speed
-        self.bottom = self.window.viewport_height
-        self.upper = []
-        self.lower = []
+        self.window: Window = window
+        self.pipe_gap: int = 160
+        self.top: int = 0
+        self.speed: int = speed
+        self.bottom: int = self.window.viewport_height
+        self.upper: List = []
+        self.lower: List = []
         self.image: pygame.Surface = PyGameWrapper.image_load("flappy_animal/assets/sprites/" + image)
         self.spawn_initial_pipes()
 
@@ -48,12 +49,12 @@ class Pipes(Entity):
 
         return self.window.width - (last.x + last.w) > last.w * 2.5
 
-    def spawn_new_pipes(self):
+    def spawn_new_pipes(self) -> None:
         upper, lower = self.make_random_pipes()
         self.upper.append(upper)
         self.lower.append(lower)
 
-    def remove_old_pipes(self):
+    def remove_old_pipes(self) -> None:
         for pipe in self.upper:
             if pipe.x < -pipe.w:
                 self.upper.remove(pipe)
@@ -62,7 +63,7 @@ class Pipes(Entity):
             if pipe.x < -pipe.w:
                 self.lower.remove(pipe)
 
-    def spawn_initial_pipes(self):
+    def spawn_initial_pipes(self) -> None:
         upper_1, lower_1 = self.make_random_pipes()
         upper_1.x = self.window.width + upper_1.w * 3
         lower_1.x = self.window.width + upper_1.w * 3
@@ -75,9 +76,7 @@ class Pipes(Entity):
         self.upper.append(upper_2)
         self.lower.append(lower_2)
 
-    def make_random_pipes(self):
-        """returns a randomly generated pipe"""
-
+    def make_random_pipes(self) -> Tuple[Pipe, Pipe]:
         base_y = self.window.viewport_height * 0.79
 
         gap_y = random.randrange(0, int(base_y * 0.6 - self.pipe_gap - ((self.speed/10) * self.pipe_gap)))
