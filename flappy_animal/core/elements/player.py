@@ -6,7 +6,7 @@ from .pipe import Pipe, Pipes
 from .floor import Floor
 
 class Player(Entity):
-    def __init__(self, splash: str, window: Window, initial_position: Tuple) -> None:
+    def __init__(self, splash: int, window: Window, initial_position: Tuple) -> None:
         self.splash: pygame.Surface = PyGameWrapper.image_load("flappy_animal/assets/sprites/" + str(splash) + ".png")
         x = int(initial_position[0])
         y = int(initial_position[1])

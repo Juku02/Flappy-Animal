@@ -12,7 +12,7 @@ class WelcomeScene(BasicScene):
         self.background: str = background
 
     def start_game(self) -> None:
-        self.change_screen = GameScene(self.window, self.background, "options.yaml", self)
+        self.change_screen = GameScene(self.window, self.background, "options.yaml", "score.yaml",  self)
         self.create_event(Event_value.CHANGE_SCENE.value, self.__dict__)
         self.post_event()
         self.change_screen.draw()
